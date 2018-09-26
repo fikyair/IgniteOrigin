@@ -5,7 +5,7 @@ class App extends React.Component {
     render(){ // Every react component has a render method.
         return(
             <div>
-            Hello World
+            Hello World, Ignite!
         </div>
     );
     }
