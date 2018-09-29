@@ -9,7 +9,6 @@ class ToMail extends React.Component {
         newData: [],
     }
 
-
     componentDidMount(){
        // let input = document.getElementById('email-input').value;
        // console.log(input);
