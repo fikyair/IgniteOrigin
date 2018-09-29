@@ -8,6 +8,7 @@ class ToMail extends React.Component {
         display: 'none',
         newData: [],
 
+
     }
 
     componentDidMount(){
