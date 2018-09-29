@@ -1,0 +1,12 @@
+.email-sug{
+  list-style:none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #818181;
+  width: 174px;
+  overflow: hidden;
+}
+ul li{
+  padding: 3%;
+  color: #818181;
+}
