@@ -9,7 +9,7 @@ module.exports = {
     },
     module: {
         rules: [{
-            test: /\.js$/,
+            test: /\.(jsx|js)?$/,
             exclude: /node_modules/,
             loader: 'babel-loader',
             query: {
@@ -19,6 +19,13 @@ module.exports = {
         }, {
             test: /\.css$/,
             loader: "style-loader!css-loader"
+        },{
+            test: /\.less?$/,
+            use: [
+                "style-loader", // creates style nodes from JS strings,
+                'postcss-loader',
+                "less-loader", // compiles Sass to CSS
+            ]
         }]
     },
     plugins: [
@@ -28,6 +35,9 @@ module.exports = {
             }
         ),
     ],
+    resolve: {
+        extensions: ['.js', '.jsx', '.scss', '.less', '.css']
+    },
     performance: {
         hints: "warning", // 枚举
         maxAssetSize: 30000000, // 整数类型（以字节为单位）
