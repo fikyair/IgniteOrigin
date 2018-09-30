@@ -1,4 +1,6 @@
 var webpack = require('webpack');
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+
 module.exports = {
     entry: './src/app.js',
     output: {
@@ -19,6 +21,13 @@ module.exports = {
             loader: "style-loader!css-loader"
         }]
     },
+    plugins: [
+        new OpenBrowserPlugin(
+            {
+                url: 'http://localhost:8080'
+            }
+        ),
+    ],
     performance: {
         hints: "warning", // 枚举
         maxAssetSize: 30000000, // 整数类型（以字节为单位）
