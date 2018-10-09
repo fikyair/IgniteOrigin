@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/index.css';
+import '../style/index.less';
 
 class ToMail extends React.Component {
 
@@ -14,47 +14,45 @@ class ToMail extends React.Component {
        // console.log(input);
     }
 
-    keyupHandle=()=>{
+    inputHandle=()=>{
         this.setState({
             display: 'none',
             newData: [],
         })
         let input = document.getElementById('email-input1').value;
-        // console.log("input1=>",input.trim());//按下松开才打印，得到的是即时的文本， 上下左右回车都会触发
+        // console.log("input1=>",input.trim());//
+        //只要文本内容变化就打印，得到的是即时的文本，都不触发
         this.create(input);
     }
 
     //生成提示框内容
     create(input){
-        debugger
-        console.log(input);
-        input = this.inputValueFormat(input);
         let postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
         let indextemp = input.indexOf('@');
-        let postfix = input.slice(indextemp);//后缀
+        let postfix = input.slice(indextemp+1);//后缀
         let newPostFix = [];//新后缀
+        let newDataPostFix = [];
+        //input = this.inputValueFormat(input);
         //匹配后缀
         if(indextemp!=-1){
             for (let i = 0; i< postfixList.length; i++){
+                console.log("有@的时候 = ",postfix);
                 if(postfixList[i].slice(0,postfix.length)=== postfix&&postfix){
                     newPostFix.push(postfixList[i]);
                 }
             }
-
-            if(newPostFix.length===0){
-                newPostFix = postfix;
+            for(let i = 0; i < newPostFix.length; i++){
+                newDataPostFix.push(input.trim()+'@'+newPostFix[i]);
             }
-        }else{
-            newPostFix = postfix;
+        }else {
+            newDataPostFix.push(input);
         }
 
-        for(let i = 0; i < newPostFix.length; i++){
-            newPostFix.push(input.trim()+'@'+newPostFix[i]);
-        }
+        console.log("newPostFix",newPostFix)
         if(input.length!=0){
             this.setState({
                 display: 'inline-block',
-                newData: [...newPostFix],
+                newData: [...newDataPostFix],
             })
         }
     }
@@ -81,9 +79,9 @@ class ToMail extends React.Component {
     //     console.log("input3=>",input);//只要文本内容变化就打印，得到的是触发键盘事件前的文本， 上下左右回车都会触发
     // }
     //
-    // inputHandle () {
+    // onkeyUp () {
     //     let input = document.getElementById('email-input4').value;
-    //     console.log("input4=>",input);//只要文本内容变化就打印，得到的是即时的文本，都不触发
+    //     console.log("input4=>",input);//按下松开才打印，得到的是即时的文本， 上下左右回车都会触发
     // }
 
 
@@ -93,7 +91,7 @@ class ToMail extends React.Component {
         return(
             <div>
                 <div className="wrapper">
-                    <input id='email-input1' type='text' onKeyUp={this.keyupHandle}/>
+                    <input id='email-input1' type='text' onInput={this.inputHandle}/>
                     {/*<input id='email-input2' type='text' onKeyPress={this.keypressHandle}/>*/}
                     {/*<input id='email-input3' type='text' onKeyDown={this.keydownHandle}/>*/}
                     {/*<input id='email-input4' type='text' onInput={this.inputHandle}/>*/}
