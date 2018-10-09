@@ -32,23 +32,21 @@ class ToMail extends React.Component {
         let postfix = input.slice(indextemp+1);//后缀
         let newPostFix = [];//新后缀
         let newDataPostFix = [];
-        //input = this.inputValueFormat(input);
+        let inputWithOutPostFix = this.inputValueFormat(input);
         //匹配后缀
         if(indextemp!=-1){
             for (let i = 0; i< postfixList.length; i++){
-                console.log("有@的时候 = ",postfix);
                 if(postfixList[i].slice(0,postfix.length)=== postfix&&postfix){
                     newPostFix.push(postfixList[i]);
                 }
             }
             for(let i = 0; i < newPostFix.length; i++){
-                newDataPostFix.push(input.trim()+'@'+newPostFix[i]);
+                newDataPostFix.push(inputWithOutPostFix.trim()+'@'+newPostFix[i]);
             }
         }else {
-            newDataPostFix.push(input);
+            newDataPostFix.push(inputWithOutPostFix);
         }
 
-        console.log("newPostFix",newPostFix)
         if(input.length!=0){
             this.setState({
                 display: 'inline-block',
