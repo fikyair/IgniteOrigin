@@ -5,7 +5,6 @@ class ToMail extends React.Component {
 
 
     state = {
-        display: 'none',
         newData: [],
     }
 
@@ -16,7 +15,6 @@ class ToMail extends React.Component {
 
     inputHandle=()=>{
         this.setState({
-            display: 'none',
             newData: [],
         })
         let input = document.getElementById('email-input1').value;
@@ -36,7 +34,7 @@ class ToMail extends React.Component {
         //匹配后缀
         if(indextemp!=-1){
             for (let i = 0; i< postfixList.length; i++){
-                if(postfixList[i].slice(0,postfix.length)=== postfix&&postfix){
+                if(postfixList[i].slice(0,postfix.length)=== postfix.trim()&&postfix){
                     newPostFix.push(postfixList[i]);
                 }
             }
@@ -53,7 +51,6 @@ class ToMail extends React.Component {
 
         if(input.length!=0){
             this.setState({
-                display: 'inline-block',
                 newData: [...newDataPostFix],
             })
         }
@@ -70,7 +67,13 @@ class ToMail extends React.Component {
         }
     }
 
-
+    handleClick=(e)=>{
+        let currentValue = e.target.innerHTML;
+        document.getElementById('email-input1').value = currentValue;
+        this.setState({
+            newData: [],
+        })
+    }
     // keypressHandle(){
     //     let input = document.getElementById('email-input2').value;
     //     console.log("input2=>",input);//只要文本内容变化就打印，得到的是触发键盘事件前的文本, 只有回车会触发
@@ -92,7 +95,7 @@ class ToMail extends React.Component {
         const { newData = [] } = this.state;
         return(
             <div>
-                <div className="wrapper">
+                <div className='wrapper'>
                     <input id='email-input1' type='text' onInput={this.inputHandle}/>
                     {/*<input id='email-input2' type='text' onKeyPress={this.keypressHandle}/>*/}
                     {/*<input id='email-input3' type='text' onKeyDown={this.keydownHandle}/>*/}
@@ -101,7 +104,7 @@ class ToMail extends React.Component {
                         {
                             newData.map((v,k)=>{
                                 return(
-                                    <li key = {k} >{v}</li>
+                                    <li key = {k} onClick={this.handleClick}>{v}</li>
                                 )
                             })
                         }
