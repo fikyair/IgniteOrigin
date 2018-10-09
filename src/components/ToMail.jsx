@@ -43,8 +43,12 @@ class ToMail extends React.Component {
             for(let i = 0; i < newPostFix.length; i++){
                 newDataPostFix.push(inputWithOutPostFix.trim()+'@'+newPostFix[i]);
             }
-        }else {
-            newDataPostFix.push(inputWithOutPostFix);
+        }
+        //不匹配显示全部
+        if(newPostFix.length===0){
+            for(let i = 0; i < postfixList.length; i++){
+                newDataPostFix.push(inputWithOutPostFix.trim()+'@'+postfixList[i]);
+            }
         }
 
         if(input.length!=0){
