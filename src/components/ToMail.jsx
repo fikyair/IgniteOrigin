@@ -1,16 +1,62 @@
 import React from 'react';
 import '../style/index.less';
 
+let nowSelectIndex = 0;
 class ToMail extends React.Component {
 
 
     state = {
         newData: [],
+        nowSelectTipIndex: 0,
     }
 
     componentDidMount(){
-       // let input = document.getElementById('email-input').value;
+        let input = document.getElementById('email-input1');
        // console.log(input);
+        input.onkeydown  = this.onkey;
+    }
+
+    onkey=(e)=>{
+        console.log('666',nowSelectIndex);
+        let input = document.getElementById('email-input1');
+        let li = document.querySelectorAll('li');
+            if(e.keyCode === 38){
+                e.preventDefault();
+                if(nowSelectIndex === 0){
+                    li[nowSelectIndex].className = '';
+                    nowSelectIndex =li.length - 1;
+                    li[nowSelectIndex].className = 'select';
+                }else {
+                    li[nowSelectIndex].className = '';
+                    nowSelectIndex = nowSelectIndex -1;
+                    li[nowSelectIndex].className = 'select';
+                }
+            }
+
+        if (e.keyCode == 40) {
+            if (nowSelectIndex == li.length - 1) {
+                li[nowSelectIndex].className = "";
+                nowSelectIndex = 0;
+                li[nowSelectIndex].className = "select";
+            }else {
+                li[nowSelectIndex].className = "";
+                nowSelectIndex = nowSelectIndex + 1;
+                li[nowSelectIndex].className = "select";
+            }
+        }
+
+        if (e.keyCode == 13) {
+            input.value = li[nowSelectIndex].innerHTML;
+            this.hide();
+        }
+
+    }
+
+    hide=()=>{
+        console.log("sss")
+        this.setState({
+            newData: [],
+        })
     }
 
     inputHandle=()=>{
@@ -18,13 +64,13 @@ class ToMail extends React.Component {
             newData: [],
         })
         let input = document.getElementById('email-input1').value;
-        // console.log("input1=>",input.trim());//
         //只要文本内容变化就打印，得到的是即时的文本，都不触发
         this.create(input);
     }
 
     //生成提示框内容
     create(input){
+        let { nowSelectTipIndex , newData } = this.state;
         let postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
         let indextemp = input.indexOf('@');
         let postfix = input.slice(indextemp+1);//后缀
@@ -53,6 +99,10 @@ class ToMail extends React.Component {
             this.setState({
                 newData: [...newDataPostFix],
             })
+        }
+        let list = document.querySelectorAll('li');
+        if(newData.length != 0){
+            list[nowSelectTipIndex].className = 'select';
         }
     }
 
