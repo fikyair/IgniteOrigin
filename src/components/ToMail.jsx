@@ -12,7 +12,6 @@ class ToMail extends React.Component {
 
     componentDidMount(){
         let input = document.getElementById('email-input1');
-       // console.log(input);
         input.onkeydown  = this.onkey;
     }
 
@@ -52,7 +51,6 @@ class ToMail extends React.Component {
     }
 
     hide=()=>{
-        console.log("sss")
         this.setState({
             newData: [],
         })
@@ -69,13 +67,14 @@ class ToMail extends React.Component {
 
     //生成提示框内容
     create(input){
-        let { nowSelectTipIndex , newData } = this.state;
+        let  { newData } = this.state;
         let postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
         let indextemp = input.indexOf('@');
         let postfix = input.slice(indextemp+1);//后缀
         let newPostFix = [];//新后缀
         let newDataPostFix = [];
         let inputWithOutPostFix = this.inputValueFormat(input);
+        let list = document.querySelectorAll('li');
         //匹配后缀
         if(indextemp!=-1){
             for (let i = 0; i< postfixList.length; i++){
@@ -92,16 +91,20 @@ class ToMail extends React.Component {
             for(let i = 0; i < postfixList.length; i++){
                 newDataPostFix.push(inputWithOutPostFix.trim()+'@'+postfixList[i]);
             }
+
+            if(list.length!=0){
+                list[nowSelectIndex].className = '';
+            }
         }
 
         if(input.length!=0){
             this.setState({
                 newData: [...newDataPostFix],
-            })
-        }
-        let list = document.querySelectorAll('li');
-        if(newData.length != 0){
-            list[nowSelectTipIndex].className = 'select';
+            },()=>{
+                let listTemp = document.querySelectorAll('li');
+                nowSelectIndex = 0;
+                listTemp[nowSelectIndex].className = 'select';
+            })//疑问怎样优雅的解决setState异步的问题
         }
     }
 
