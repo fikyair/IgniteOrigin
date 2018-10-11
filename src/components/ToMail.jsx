@@ -17,7 +17,6 @@ class ToMail extends React.Component {
     }
 
     onkey=(e)=>{
-        console.log('666',nowSelectIndex);
         let input = document.getElementById('email-input1');
         let li = document.querySelectorAll('li');
             if(e.keyCode === 38){
