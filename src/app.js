@@ -4,8 +4,8 @@ import ToMail from './components/ToMail';
 
 class App extends React.Component {
     render(){
-        return(
-            <ToMail/>
+        return(//
+            <ToMail />
         );
     }
 }
