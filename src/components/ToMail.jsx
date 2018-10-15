@@ -149,7 +149,6 @@ class ToMail extends React.Component {
             <div>
                 <div className='wrapper'>
                     <input id='email-input1' type='text' onInput={this.inputHandle}/>
-                    {/*<input id='email-input4' type='text' onInput={this.inputHandle}/>*/}
                     <ul id='email-sug-wrapper' className='email-sug' >
                         {
                             newData.map((v,k)=>{
