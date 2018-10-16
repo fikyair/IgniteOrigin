@@ -6,7 +6,7 @@ class SmartSeller extends React.Component {
     render(){
         return(
             <div>
-                在html页面中开发
+                在html页面中开发...
             </div>
         )
     }
